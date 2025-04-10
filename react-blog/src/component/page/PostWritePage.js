@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import PostList from '../list/PostList';
+import TextInput from '../ui/TextInput';
 import Button from '../ui/Button';
-import data from '../../data.json';
 
 const Wrapper = styled.div`
     padding: 16px;
@@ -23,24 +22,29 @@ const Container = styled.div`
     }
 `;
 
-function MainPage(props) {
-    const {} = props;
-
+function PostWritePage(props) {
     const navigate = useNavigate();
+
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
 
     return (
         <Wrapper>
             <Container>
-                <Button title="글 작성하기" onClick={() => {
-                    navigate("/post-write");
-                }}></Button>
+                <TextInput height={20} value={title} onChange={(event) => {
+                    setTitle(event.target.value);
+                }}></TextInput>
 
-                <PostList posts={data} onClickItem={(item) => {
-                    navigate(`/post/${item.id}`);
-                }}></PostList>
+                <TextInput height={480} value={content} onChange={(event) => {
+                    setContent(event.target.value);
+                }}></TextInput>
+
+                <Button title="글 작성하기" onClick={() => {
+                    navigate("/");
+                }}></Button>
             </Container>
         </Wrapper>
     )
 }
 
-export default MainPage;
+export default PostWritePage;
